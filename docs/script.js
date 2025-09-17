@@ -15,7 +15,7 @@ const artists = [
     city: 'Brussels',
     description: 'Energetic club sounds. She likes to keep you on your toes going from one genre and tempo to another.',
     link: 'https://www.youtube.com/watch?v=Pd_yWblJTGM',
-    cardImg: '/assets/$ICA_CARD.png',
+    cardImg: '../assets/$ICA_CARD.png',
     genres: ['Jersey Club', 'UK Garage', 'Pop']
   },
   {
@@ -24,7 +24,7 @@ const artists = [
     city: 'Mechelen',
     description: 'Multidisciplinary artist. Exploring sound, visuals, and rhythms through instinct.',
     link: 'https://youtu.be/1V4mP_bwozI?si=zVfjvC5wu67r8-6_',
-    cardImg: '/assets/TEHBBI_CARD.png',
+    cardImg: '../assets/TEHBBI_CARD.png',
     genres: ['Batida', 'Breakbeat', 'Gqom']
   },
   {
@@ -33,7 +33,7 @@ const artists = [
     city: 'Brussels',
     description: 'Nati is an artist with a sound that breaks boundaries and thrives on unpredictability.',
     link: '', // BRUZZ MIX UPLOAD !//
-    cardImg: '/assets/NATI_CARD.png',
+    cardImg: '../assets/NATI_CARD.png',
     genres: ['Jungle', 'UK Garage', 'Hard Groove']
   },
   {
@@ -42,7 +42,7 @@ const artists = [
     city: 'Ghent',
     description: 'Shaped by curiosity, instinct, and an openness to constant change. Carving space in a scene still finding balance.',
     link: 'https://youtu.be/Y_f8WfS6130?si=o6MHI9CccRs7H9Yn',
-    cardImg: '/assets/CJANE_CARD.png',
+    cardImg: '../assets/CJANE_CARD.png',
     genres: ['Hard Groove', 'Bounce', 'Electronic']
   },
   {
@@ -51,7 +51,7 @@ const artists = [
     city: 'Liège',
     description: 'Bringing tekno to life carving out his own path, where sound and visual experimentation intertwine into one cohesive vision.',
     link: 'https://youtu.be/BR44ckWGg0c?si=muSG6A_lUPF-Ch2z',
-    cardImg: '/assets/RAIK_CARD.png',
+    cardImg: '../assets/RAIK_CARD.png',
     genres: ['Tekno', 'Acidcore', 'Mental']
   }
 ];
@@ -95,7 +95,7 @@ function addMarker(artist) {
 
 const el = document.createElement('div');
 el.className = 'custom-marker';
-el.style.backgroundImage = 'url(/assets/MAP_MARKER_2.png)';
+el.style.backgroundImage = 'url(../assets/MAP_MARKER_2.png)';
 
   const marker = new mapboxgl.Marker(el)
     .setLngLat(artist.coords)
@@ -144,4 +144,5 @@ map.on('zoom', () => {
     marker.style.backgroundSize = 'cover';
   });
 });
+
 
