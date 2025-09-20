@@ -7,6 +7,32 @@ const map = new mapboxgl.Map({
   zoom: 11
 });
 
+// Create a toggle button dynamically
+const toggleBtn = document.createElement("button");
+toggleBtn.id = "toggle-filters";
+toggleBtn.textContent = "Show musical genres";
+document.querySelector(".filter-panel").insertBefore(
+  toggleBtn,
+  document.getElementById("genre-filters")
+);
+
+// Collapse on load
+document.getElementById("genre-filters").style.display = "none";
+
+// Toggle handler
+toggleBtn.addEventListener("click", () => {
+  const filters = document.getElementById("genre-filters");
+  const isVisible = filters.style.display === "block";
+
+  if (isVisible) {
+    filters.style.display = "none";
+    toggleBtn.textContent = "Show musical genres";
+  } else {
+    filters.style.display = "block";
+    toggleBtn.textContent = "Hide musical";
+  }
+});
+
 // Artist data
 const artists = [
   {
@@ -80,8 +106,9 @@ function renderGenreFilters(genres) {
 
 function addMarker(artist) {
   const popupContent = `
-    <div class="popup-card" style="background-image: url(${artist.cardImg});">
-      <div class="popup-overlay">
+    <div class="popup-card">
+      <div class="popup-image" style="background-image: url(${artist.cardImg});"></div>
+      <div class="popup-info">
         <h3>${artist.name}</h3>
         <p><em>${artist.city}</em></p>
         <p>${artist.description}</p>
@@ -93,9 +120,9 @@ function addMarker(artist) {
 
   const popup = new mapboxgl.Popup({ offset: [0, -500] }).setHTML(popupContent);
 
-const el = document.createElement('div');
-el.className = 'custom-marker';
-el.style.backgroundImage = 'url(assets/MAP_MARKER_2.png)';
+  const el = document.createElement('div');
+  el.className = 'custom-marker';
+  el.style.backgroundImage = 'url(assets/MAP_MARKER_2.png)';
 
   const marker = new mapboxgl.Marker(el)
     .setLngLat(artist.coords)
