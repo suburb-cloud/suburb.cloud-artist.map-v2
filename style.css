@@ -12,13 +12,20 @@ html {
   width: 100%;
 }
 
+.mapboxgl-popup {
+  max-width: none !important;   /* remove forced width */
+  width: auto !important;       /* allow flex child to size itself */
+}
+
+/* Override popup content */
 .mapboxgl-popup-content {
   background: transparent;
   border: none;
   padding: 0;
   border-radius: 16px;
-  overflow: hidden;
-  width: 300px;
+  overflow: visible;
+  width: auto !important;       /* no fixed width */
+  max-width: none !important;   /* prevent cropping */
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
 }
 
@@ -47,48 +54,77 @@ html {
   transform: scale(1.05);
 }
 
+/* Flex layout for card */
 .popup-card {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.65);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  max-width: 620px; /* total card width limit */
+}
+
+/* Image stays fixed size */
+.popup-image {
+  flex: 0 0 auto;
   width: 320px;
   height: 520px;
   background-size: cover;
-  background-position: center top;
-  border-radius: 1rem;
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  background-position: center;
 }
 
-.popup-overlay {
-  background: rgba(0, 0, 0, 0.55); /* dark translucent overlay */
+/* Info section */
+.popup-info {
+  flex: 1;
+  min-width: 220px;
+  max-width: 280px;  /* prevent super-wide popup */
+  padding: 1rem 1.5rem;
   color: white;
-  padding: 1.5rem 2.5rem; /* top-bottom, left-right */
-  width: 100%;
-  text-align: justify;
-  backdrop-filter: blur(10px); /* Glassy effect */
-  position: absolute;
-  bottom: 0;
-  border-radius: 0 0 1rem 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 0.9rem;
+  text-align: left;
+  word-wrap: break-word;       /* wrap long words */
+  overflow-wrap: break-word;
 }
 
-.popup-overlay h3 {
+.popup-info h3 {
   margin: 0 0 0.25rem 0;
   font-size: 1.2rem;
 }
 
-.popup-overlay p {
+.popup-info p {
   margin: 0.3rem 0;
-  font-size: 0.85rem;
+  line-height: 1.4;
 }
 
-.popup-overlay a {
+.popup-info a {
   color: #cfcfff;
   text-decoration: underline;
   font-weight: 500;
+}
+
+/* Mobile view: stack image + info vertically */
+@media (max-width: 700px) {
+  .popup-card {
+    flex-direction: column;
+    max-width: 90vw;
+  }
+
+  .popup-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 5;
+  }
+
+  .popup-info {
+    min-width: auto;
+    max-width: none;
+    padding: 1rem;
+  }
 }
 
 /* Optional: remove tip */
@@ -152,10 +188,11 @@ html {
   }
 }
 
+/* Genre pills stacked neatly */
 .genres {
   margin: 0.6rem 0 0.5rem;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap;  /* wrap pills instead of one long line */
   gap: 6px;
 }
 
@@ -169,6 +206,7 @@ html {
   letter-spacing: 0.5px;
   font-weight: 400;
   backdrop-filter: blur(6px);
+  word-break: break-word;
 }
 
 /* Optional Hover Effect (over the genres in the marker) */
@@ -176,4 +214,28 @@ html {
 .genres span:hover {
   background: rgba(255, 255, 255, 0.3);
   cursor: default;
+}
+
+#toggle-filters {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+#toggle-filters:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
